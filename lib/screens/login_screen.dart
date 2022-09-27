@@ -13,6 +13,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController _emailTextController = TextEditingController();
+  TextEditingController _passwordTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +34,16 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               children: <Widget>[
                 logowidget("assets/images/qmark.png"),
+                SizedBox(
+                  height: 30,
+                ),
+                reusableTextField("Enter Username", Icons.person_outline, false,
+                    _emailTextController),
+                SizedBox(
+                  height: 20,
+                ),
+                reusableTextField("Enter Password", Icons.lock_outline, true,
+                    _emailTextController),
               ],
             ),
           ),
