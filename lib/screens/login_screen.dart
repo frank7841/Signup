@@ -1,6 +1,8 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:register/screens/home_screen.dart';
+import 'package:register/screens/signup_screen.dart';
 import 'package:register/utils/colors_patch.dart';
 
 import '../components/reusable_widget.dart';
@@ -43,12 +45,40 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 20,
                 ),
                 reusableTextField("Enter Password", Icons.lock_outline, true,
-                    _emailTextController),
+                    _passwordTextController),
+                SizedBox(
+                  height: 20,
+                ),
+                loginSignupButton(context, true, () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                }),
+                signUpOption()
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Row signUpOption() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text("Don't have an account ? ",
+            style: TextStyle(color: Colors.white70)),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SignUpScreen()));
+          },
+          child: const Text(
+            "Sign up",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        )
+      ],
     );
   }
 }
