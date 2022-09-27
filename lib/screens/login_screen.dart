@@ -1,6 +1,9 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:register/utils/colors_patch.dart';
+
+import '../components/reusable_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,6 +15,28 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+          stringToColour("FF512F"),
+          stringToColour("9546C4"),
+          stringToColour("DD2476")
+        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+                20, MediaQuery.of(context).size.height * 0.2, 20, 0),
+            child: Column(
+              children: <Widget>[
+                logowidget("assets/images/qmark.png"),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
