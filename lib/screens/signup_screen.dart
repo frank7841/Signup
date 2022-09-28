@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -18,6 +19,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _usernameTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
+  TextEditingController _firstTextController = TextEditingController();
+  TextEditingController _lastTextController = TextEditingController();
+  TextEditingController _countryTextController = TextEditingController();
+
+  Future adduserDetails(String userName, String firstName, String lastName,
+      String country, String email) async {
+    await FirebaseFirestore.instance.collection("users").add({
+      'username': userName,
+      'first_name': firstName,
+      'last_name': lastName,
+      'country': country,
+      'email': email
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +66,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SizedBox(
                     height: 20,
                   ),
+                  reusableTextField("Enter First Name", Icons.person_outline,
+                      false, _firstTextController),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextField("Enter Last Name", Icons.person_outline,
+                      false, _lastTextController),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextField("Enter Country", Icons.location_city, false,
+                      _countryTextController),
+                  SizedBox(
+                    height: 20,
+                  ),
                   reusableTextField("Enter Email", Icons.person_outline, false,
                       _emailTextController),
                   SizedBox(
@@ -63,10 +94,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   loginSignupButton(context, false, () {
                     FirebaseAuth.instance
                         .createUserWithEmailAndPassword(
-                            email: _emailTextController.text,
-                            password: _passwordTextController.text)
+                            email: _emailTextController.text.trim(),
+                            password: _passwordTextController.text.trim())
                         .then((value) {
                       print("Created New Account");
+
+                      // FirebaseFirestore.instance.collection('users').add({
+                      //   'user_name': _usernameTextController.text,
+                      //   'first_name': _firstTextController.text,
+                      //   'last_name': _lastTextController.text,
+                      //   'country': _countryTextController.text,
+                      //   'email': _emailTextController.text
+                      // });
+                      adduserDetails(
+                          _usernameTextController.text.trim(),
+                          _firstTextController.text.trim(),
+                          _lastTextController.text.trim(),
+                          _countryTextController.text.trim(),
+                          _emailTextController.text.trim());
                       Navigator.push(
                           context,
                           MaterialPageRoute(

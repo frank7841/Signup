@@ -53,8 +53,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 loginSignupButton(context, true, () {
                   FirebaseAuth.instance
                       .signInWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text)
+                          email: _emailTextController.text.trim(),
+                          password: _passwordTextController.text.trim())
                       .then((value) {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => HomeScreen()));
